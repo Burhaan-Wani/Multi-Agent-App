@@ -1,0 +1,22 @@
+import { getEnv } from "../utils/get-env.js";
+
+const appConfig = () => ({
+    NODE_ENV: getEnv("NODE_ENV", "production"),
+    PORT: getEnv("PORT", "4000"),
+    BASE_PATH: getEnv("", "/api/v1"),
+    MONGO_DB_URI: getEnv("MONGO_DB_URI"),
+    SESSION_SECRET: getEnv("SESSION_SECRET"),
+    GOOGLE_CLIENT_ID: getEnv("GOOGLE_CLIENT_ID"),
+    GOOGLE_CLIENT_SECRET: getEnv("GOOGLE_CLIENT_SECRET"),
+    GOOGLE_CALLBACK_URL: getEnv("GOOGLE_CALLBACK_URL"),
+    GITHUB_CLIENT_ID: getEnv("GITHUB_CLIENT_ID"),
+    GITHUB_CLIENT_SECRET: getEnv("GITHUB_CLIENT_SECRET"),
+    GITHUB_CALLBACK_URL: getEnv("GITHUB_CALLBACK_URL"),
+    FRONTEND_URL: getEnv("FRONTEND_URL"),
+    FRONTEND_GOOGLE_CALLBACK_URL: getEnv("FRONTEND_GOOGLE_CALLBACK_URL"),
+    FRONTEND_GITHUB_CALLBACK_URL: getEnv("FRONTEND_GITHUB_CALLBACK_URL"),
+});
+
+const config = appConfig();
+
+export default config;
