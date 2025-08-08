@@ -7,6 +7,7 @@ import "./config/passport.config.js";
 import config from "./config/app.config.js";
 
 import authRoutes from "./routes/auth.routes.js";
+import { errorHandlingMiddleware } from "./middlewares/errorhandling.middleware.js";
 
 const app = express();
 
@@ -48,5 +49,6 @@ const BASE_PATH = config.BASE_PATH;
 app.use(`${BASE_PATH}/auth`, authRoutes);
 
 // ERROR HANDLING MIDDLEWARE
+app.use(errorHandlingMiddleware);
 
 export default app;
