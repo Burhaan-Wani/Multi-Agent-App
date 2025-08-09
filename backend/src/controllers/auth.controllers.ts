@@ -78,6 +78,11 @@ export const logout = asyncHandler((req, res, next) => {
 });
 
 export const me = asyncHandler(async (req, res, next) => {
-    console.log(req.user);
-    res.send("hi there");
+    const user = req.user.omitPassword();
+    res.status(200).json({
+        status: "success",
+        data: {
+            user,
+        },
+    });
 });
