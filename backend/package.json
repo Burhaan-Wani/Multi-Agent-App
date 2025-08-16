@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon",
-        "build": "tsc && node dist/server.js"
+        "build": "tsc && node dist/server.js",
+        "seed": "tsx src/seeders/metric.seeder.ts"
     },
     "keywords": [],
     "author": "",
@@ -28,6 +29,7 @@
         "typescript": "^5.9.2"
     },
     "dependencies": {
+        "@google/genai": "^1.13.0",
         "@types/cookie-session": "^2.0.49",
         "bcryptjs": "^3.0.2",
         "cookie-session": "^2.1.1",
@@ -35,6 +37,7 @@
         "dotenv": "^17.2.1",
         "express": "^5.1.0",
         "mongoose": "^8.17.0",
+        "openai": "^5.12.2",
         "passport": "^0.7.0",
         "passport-github2": "^0.1.12",
         "passport-google-oauth20": "^2.0.0",

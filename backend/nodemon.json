@@ -2,5 +2,5 @@
     "watch": ["src"],
     "ext": "ts",
     "ignore": [],
-    "exec": "tsx watch src/server.ts"
+    "exec": "tsx watch --include \"./src/**/*\" src/server.ts"
 }

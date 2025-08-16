@@ -1,11 +1,55 @@
 import { Routes, Route } from "react-router";
 import Auth from "./pages/Auth";
+import { useEffect } from "react";
+import { useAuthStore } from "./store/authStore";
+import axiosInstance from "./lib/axios";
+import { ProtectRoute, PublicRoute } from "./components/PublicAndProtectRoute";
+
 const App = () => {
+    const { setUser, user, setLoading } = useAuthStore(state => state);
+
+    useEffect(() => {
+        async function fetchMe() {
+            try {
+                setLoading(true);
+                const res = await axiosInstance.get("/auth/me", {
+                    withCredentials: true,
+                });
+
+                if (res.data.status === "success") {
+                    setUser(res.data.data.user);
+                }
+            } catch (error) {
+                console.log(error);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchMe();
+    }, [setUser, setLoading]);
+
     return (
         <>
             <Routes>
-                <Route path="/" element={<>hi threr</>} />
-                <Route path="auth" element={<Auth />} />
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <ProtectRoute>
+                                <>{user?.name ?? "burhaan"}</>
+                            </ProtectRoute>
+                        </>
+                    }
+                />
+                <Route
+                    path="auth"
+                    element={
+                        <PublicRoute>
+                            <Auth />
+                        </PublicRoute>
+                    }
+                />
             </Routes>
         </>
     );

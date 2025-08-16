@@ -22,13 +22,11 @@ const userSchema = new mongoose.Schema<UserDocument>(
             type: String,
             required: true,
             trim: true,
-            unique: true,
         },
         provider: {
             type: String,
             enum: Object.values(providerEnum),
             required: true,
-            unique: true,
         },
         name: {
             type: String,
@@ -40,7 +38,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
             required: true,
             lowercase: true,
             trim: true,
-            unique: true,
+            // unique: true,
         },
         password: {
             type: String,

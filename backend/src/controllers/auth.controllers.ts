@@ -5,17 +5,16 @@ import AppError from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const register = asyncHandler(async (req, res, next) => {
+    console.log("hi");
     const { name, email, password } = req.body;
+
     if (!name || !email || !password) {
         return next(new AppError("All fields are required", 400));
     }
 
-    const existsUser = await User.findOne({
-        provider: providerEnum.EMAIL,
-        providerId: email,
-    });
-    if (existsUser) {
-        return next(new AppError("User with this email exists", 400));
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        return next(new AppError("User with this email already exists", 400));
     }
 
     await User.create({
@@ -57,7 +56,7 @@ export const login = asyncHandler(async (req, res, next) => {
                 return res.status(200).json({
                     status: "success",
                     message: "User logged In successfully",
-                    user,
+                    data: { user },
                 });
             });
         }

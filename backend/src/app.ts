@@ -7,6 +7,7 @@ import "./config/passport.config.js";
 import config from "./config/app.config.js";
 
 import authRoutes from "./routes/auth.routes.js";
+import evaluationRoutes from "./routes/evaluation.routes.js";
 import { errorHandlingMiddleware } from "./middlewares/errorhandling.middleware.js";
 
 const app = express();
@@ -15,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: [config.FRONTEND_URL],
+        origin: ["http://localhost:5173"],
         credentials: true,
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     })
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 // ROUTES
 const BASE_PATH = config.BASE_PATH;
 app.use(`${BASE_PATH}/auth`, authRoutes);
+app.use(`${BASE_PATH}/evaluations`, evaluationRoutes);
 
 // ERROR HANDLING MIDDLEWARE
 app.use(errorHandlingMiddleware);
