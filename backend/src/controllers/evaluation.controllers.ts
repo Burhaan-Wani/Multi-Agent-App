@@ -51,3 +51,33 @@ export const submitPeerEvaluation = asyncHandler(async (req, res, next) => {
         },
     });
 });
+
+export const getEvaluationHistory = asyncHandler(async (req, res, next) => {
+    const userId = req.user._id;
+
+    // pagination params
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
+
+    // Query evaluations for this user, sorted by most recent
+    const evaluations = await EvaluationModel.find({ user: userId })
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .select("query createdAt finalRanking agentResponses")
+        .exec();
+
+    const totalCount = await EvaluationModel.countDocuments({ user: userId });
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            page,
+            limit,
+            totalCount,
+            totalPages: Math.ceil(totalCount / limit),
+            evaluations,
+        },
+    });
+});
