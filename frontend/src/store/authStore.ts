@@ -1,3 +1,4 @@
+import axiosInstance from "@/lib/axios";
 import { create } from "zustand";
 
 type State = {
@@ -20,6 +21,7 @@ type Actions = {
     setUser: (user: State["user"]) => void;
     setLoading: (value: boolean) => void;
     setError: (value: string) => void;
+    logout: () => Promise<void>;
 };
 export const useAuthStore = create<State & Actions>(set => ({
     user: null,
@@ -28,4 +30,14 @@ export const useAuthStore = create<State & Actions>(set => ({
     setLoading: value => set({ loading: value }),
     setError: value => set({ error: value }),
     setUser: user => set({ user: user }),
+    logout: async () => {
+        await axiosInstance.post(
+            "/auth/logout",
+            {},
+            {
+                withCredentials: true,
+            }
+        );
+        set({ user: null });
+    },
 }));

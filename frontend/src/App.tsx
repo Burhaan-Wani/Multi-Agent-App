@@ -4,9 +4,10 @@ import { useEffect } from "react";
 import { useAuthStore } from "./store/authStore";
 import axiosInstance from "./lib/axios";
 import { ProtectRoute, PublicRoute } from "./components/PublicAndProtectRoute";
+import Home from "./pages/Home";
 
 const App = () => {
-    const { setUser, user, setLoading } = useAuthStore(state => state);
+    const { setUser, setLoading } = useAuthStore(state => state);
 
     useEffect(() => {
         async function fetchMe() {
@@ -37,7 +38,27 @@ const App = () => {
                     element={
                         <>
                             <ProtectRoute>
-                                <>{user?.name ?? "burhaan"}</>
+                                <Home />
+                            </ProtectRoute>
+                        </>
+                    }
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <>
+                            <ProtectRoute>
+                                <p>Profile page</p>
+                            </ProtectRoute>
+                        </>
+                    }
+                />
+                <Route
+                    path="/history"
+                    element={
+                        <>
+                            <ProtectRoute>
+                                <>History page</>
                             </ProtectRoute>
                         </>
                     }
