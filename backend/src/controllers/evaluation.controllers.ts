@@ -2,6 +2,11 @@ import { peerEvaluateLLMResponses } from "../agents/evaluatorAgents.js";
 import { runAllLLMAgents } from "../agents/llmAgentRunner.js";
 import EvaluationModel from "../models/Evaluation.model.js";
 import Metric, { IMetric } from "../models/metric.model.js";
+import {
+    callDeepSeek,
+    callGeminiFlash,
+    callGeminiPro,
+} from "../services/llmServices.js";
 import { aggregatePeerScores } from "../utils/aggregatePeerScores.js";
 import AppError from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -78,6 +83,36 @@ export const getEvaluationHistory = asyncHandler(async (req, res, next) => {
             totalCount,
             totalPages: Math.ceil(totalCount / limit),
             evaluations,
+        },
+    });
+});
+
+export const improveBestResponse = asyncHandler(async (req, res, next) => {
+    const { query, bestResponse } = req.body;
+    if (!query || !bestResponse) {
+        return next(new AppError("Query and bestResponse are required", 400));
+    }
+
+    const prompt = `
+The user asked: "${query}".
+
+The current best response is:
+"${bestResponse.response}"
+
+Can you suggest improvements—make it more accurate, clear, and helpful—while maintaining the original intent?
+Only output the improved response text.
+    `.trim();
+
+    let improvedText = await callGeminiFlash(
+        "gemini-2.5-pro",
+        "You are an expert assistant improving responses.",
+        prompt
+    );
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            improvedResponse: improvedText.trim(),
         },
     });
 });

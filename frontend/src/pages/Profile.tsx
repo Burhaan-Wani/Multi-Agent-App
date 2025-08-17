@@ -94,6 +94,7 @@ export default function Profile() {
         ];
         if (keys.every(key => passwordData[key] === "")) {
             toast.error("All fields are required");
+            return;
         }
         if (passwordData.newPassword !== passwordData.confirmPassword) {
             toast.error("New passwords do not match.");

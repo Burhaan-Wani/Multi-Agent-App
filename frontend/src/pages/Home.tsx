@@ -74,7 +74,13 @@ export default function Home() {
                             </p>
                         </div>
                     )}
-                    {result && <EvalResult result={result} metrics={metrics} />}
+                    {result && (
+                        <EvalResult
+                            result={result}
+                            metrics={metrics}
+                            query={query}
+                        />
+                    )}
                     {!loading && !result && (
                         <div className="flex h-full flex-col items-center justify-center text-center text-slate-500">
                             <Sparkles className="h-16 w-16 mb-4" />

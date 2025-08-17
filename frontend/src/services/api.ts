@@ -2,6 +2,8 @@ import {
     EvaluationHistoryResponse,
     EvaluateRequest,
     EvaluateResponse,
+    AgentResponse,
+    improvedResponse,
 } from "../types/evaluation";
 import axiosInstance from "@/lib/axios";
 
@@ -22,4 +24,16 @@ export async function getEvaluationHistory(page = 1, limit = 10) {
         }
     );
     return res.data;
+}
+
+export async function improveResponse(
+    query: string,
+    bestResponse: AgentResponse
+): Promise<improvedResponse> {
+    const response = await axiosInstance.post<improvedResponse>(
+        "/evaluations/improve",
+        { query, bestResponse },
+        { withCredentials: true }
+    );
+    return response.data;
 }

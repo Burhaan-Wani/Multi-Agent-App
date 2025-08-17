@@ -56,3 +56,10 @@ export interface EvaluationHistoryResponse {
         }>;
     };
 }
+
+export interface improvedResponse {
+    status: "success";
+    data: {
+        improvedResponse: string;
+    };
+}

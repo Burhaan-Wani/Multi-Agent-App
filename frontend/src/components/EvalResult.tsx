@@ -6,12 +6,10 @@ import {
     LeaderboardItem,
 } from "../types/evaluation";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
 import { Progress } from "@/components/ui/progress";
+import ModelResponseCard from "./ModelResponseCard";
 import {
     Bot,
-    Clock,
-    FileText,
     Trophy,
     CheckCircle2,
     BarChart2,
@@ -84,7 +82,9 @@ const LeaderboardCard = ({
 const BestResponseCard = ({
     bestResponse,
 }: {
-    bestResponse: AgentResponse | null;
+    bestResponse:
+        | (AgentResponse & { responseTime: string; tokens: number })
+        | null;
 }) => {
     if (!bestResponse) return null;
     return (
@@ -99,10 +99,6 @@ const BestResponseCard = ({
                 <p className="text-sm text-slate-700 dark:text-slate-300">
                     <span className="font-bold text-slate-900 dark:text-white">
                         {bestResponse.agentName}
-                    </span>{" "}
-                    from{" "}
-                    <span className="font-semibold text-slate-900 dark:text-white">
-                        {bestResponse.provider}
                     </span>{" "}
                     achieved the highest average score.
                 </p>
@@ -192,9 +188,13 @@ const MetricsDisplayCard = ({ metrics }: { metrics: Metric[] }) => (
     </Card>
 );
 
-type Props = { result: EvaluateResponse; metrics: Metric[] };
+type Props = {
+    result: EvaluateResponse;
+    metrics: Metric[];
+    query: string;
+};
 
-export default function EvalResult({ result, metrics }: Props) {
+export default function EvalResult({ result, metrics, query }: Props) {
     const responsesWithMockData = addMockData(result.data.responses);
     const bestResponseInfo = result.data.bestResponse;
     const fullBestResponse = bestResponseInfo
@@ -210,44 +210,14 @@ export default function EvalResult({ result, metrics }: Props) {
                     <Bot /> Model Responses
                 </h2>
                 {responsesWithMockData.map((r, idx) => (
-                    <Card
+                    <ModelResponseCard
                         key={idx}
-                        className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-lg"
-                    >
-                        <CardHeader className="flex flex-row justify-between items-start">
-                            <div>
-                                <CardTitle className="text-lg text-slate-900 dark:text-slate-100">
-                                    {r.agentName}
-                                </CardTitle>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">
-                                    {r.provider}
-                                </p>
-                            </div>
-                            {fullBestResponse?.agentName === r.agentName && (
-                                <Badge
-                                    variant="default"
-                                    className="bg-green-100 text-green-700 border-green-200 dark:bg-green-500/20 dark:text-green-400 dark:border-green-500/30"
-                                >
-                                    Best Response
-                                </Badge>
-                            )}
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
-                                {r.response}
-                            </p>
-                            <div className="border-t border-slate-200 dark:border-slate-800 mt-4 pt-4 flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
-                                <div className="flex items-center gap-2">
-                                    <Clock size={14} />
-                                    <span>Response time: {r.responseTime}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <FileText size={14} />
-                                    <span>Tokens: {r.tokens}</span>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                        response={r}
+                        isBestResponse={
+                            fullBestResponse?.agentName === r.agentName
+                        }
+                        query={query}
+                    />
                 ))}
             </div>
             <aside className="xl:col-span-1 space-y-8 sticky top-8">
