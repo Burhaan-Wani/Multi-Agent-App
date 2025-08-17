@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import History from "./pages/History";
 import Layout from "./layouts/Layout";
 import Profile from "./pages/Profile";
+import EvaluationDetail from "./pages/EvaluationDetail";
 
 const App = () => {
     const { setUser, setLoading } = useAuthStore(state => state);
@@ -46,6 +47,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/history" element={<History />} />
                     <Route path="/my-profile" element={<Profile />} />
+                    <Route path="/history/:id" element={<EvaluationDetail />} />
                 </Route>
                 <Route
                     path="auth"

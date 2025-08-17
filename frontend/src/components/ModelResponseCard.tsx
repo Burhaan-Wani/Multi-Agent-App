@@ -76,12 +76,14 @@ type Props = {
     response: AgentResponse & { responseTime: string; tokens: number };
     isBestResponse: boolean;
     query: string;
+    isReadOnly: boolean;
 };
 
 export default function ModelResponseCard({
     response,
     isBestResponse,
     query,
+    isReadOnly,
 }: Props) {
     const [improvedResponse, setImprovedResponse] = useState<string | null>(
         null
@@ -165,7 +167,7 @@ export default function ModelResponseCard({
                             <span>Tokens: {response.tokens}</span>
                         </div>
                     </div>
-                    {isBestResponse && (
+                    {!isReadOnly && isBestResponse && (
                         <Button
                             variant="outline"
                             size="sm"

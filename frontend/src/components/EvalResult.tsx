@@ -191,10 +191,16 @@ const MetricsDisplayCard = ({ metrics }: { metrics: Metric[] }) => (
 type Props = {
     result: EvaluateResponse;
     metrics: Metric[];
-    query: string;
+    query?: string;
+    isReadOnly?: boolean;
 };
 
-export default function EvalResult({ result, metrics, query }: Props) {
+export default function EvalResult({
+    result,
+    metrics,
+    query,
+    isReadOnly = false,
+}: Props) {
     const responsesWithMockData = addMockData(result.data.responses);
     const bestResponseInfo = result.data.bestResponse;
     const fullBestResponse = bestResponseInfo
@@ -216,7 +222,8 @@ export default function EvalResult({ result, metrics, query }: Props) {
                         isBestResponse={
                             fullBestResponse?.agentName === r.agentName
                         }
-                        query={query}
+                        query={query!}
+                        isReadOnly={isReadOnly}
                     />
                 ))}
             </div>

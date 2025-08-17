@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    getEvaluationById,
     getEvaluationHistory,
     improveBestResponse,
     submitPeerEvaluation,
@@ -12,5 +13,6 @@ router.use(isAuthenticated);
 router.post("/", submitPeerEvaluation);
 router.post("/improve", improveBestResponse);
 router.get("/history", getEvaluationHistory);
+router.get("/:id", getEvaluationById);
 
 export default router;

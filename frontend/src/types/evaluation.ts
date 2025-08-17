@@ -35,6 +35,32 @@ export interface EvaluateResponse {
         leaderboard: LeaderboardItem[];
         bestResponse: LeaderboardItem | null;
         dbRecordId: string;
+        metrics?: MetricWithId[];
+    };
+}
+
+export interface MetricWithId extends Metric {
+    _id: string;
+}
+
+// Represents an agent response from the database, including its _id
+export interface AgentResponseWithId extends AgentResponse {
+    _id: string;
+}
+export interface EvaluationRecord {
+    _id: string;
+    user: string;
+    query: string;
+    agentResponses: AgentResponseWithId[];
+    metrics: MetricWithId[];
+    finalRanking: LeaderboardItem[];
+    createdAt: string;
+}
+
+export interface SingleEvaluationApiResponse {
+    status: string;
+    data: {
+        evaluation: EvaluationRecord;
     };
 }
 

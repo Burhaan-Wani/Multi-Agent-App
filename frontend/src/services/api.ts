@@ -4,6 +4,7 @@ import {
     EvaluateResponse,
     AgentResponse,
     improvedResponse,
+    SingleEvaluationApiResponse,
 } from "../types/evaluation";
 import axiosInstance from "@/lib/axios";
 
@@ -37,3 +38,15 @@ export async function improveResponse(
     );
     return response.data;
 }
+
+export const getEvaluationById = async (
+    id: string
+): Promise<SingleEvaluationApiResponse> => {
+    const response = await axiosInstance.get<SingleEvaluationApiResponse>(
+        `/evaluations/${id}`,
+        {
+            withCredentials: true,
+        }
+    );
+    return response.data;
+};

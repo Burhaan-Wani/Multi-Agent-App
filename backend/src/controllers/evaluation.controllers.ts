@@ -116,3 +116,18 @@ Only output the improved response text.
         },
     });
 });
+
+export const getEvaluationById = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+
+    const evaluation = await EvaluationModel.findById(id);
+
+    if (!evaluation) {
+        return next(new AppError("No evaluation found with that ID", 404));
+    }
+
+    res.status(200).json({
+        status: "success",
+        data: { evaluation },
+    });
+});
