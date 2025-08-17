@@ -5,6 +5,9 @@ import { useAuthStore } from "./store/authStore";
 import axiosInstance from "./lib/axios";
 import { ProtectRoute, PublicRoute } from "./components/PublicAndProtectRoute";
 import Home from "./pages/Home";
+import History from "./pages/History";
+import Layout from "./layouts/Layout";
+import Profile from "./pages/Profile";
 
 const App = () => {
     const { setUser, setLoading } = useAuthStore(state => state);
@@ -34,35 +37,16 @@ const App = () => {
         <>
             <Routes>
                 <Route
-                    path="/"
                     element={
-                        <>
-                            <ProtectRoute>
-                                <Home />
-                            </ProtectRoute>
-                        </>
+                        <ProtectRoute>
+                            <Layout />
+                        </ProtectRoute>
                     }
-                />
-                <Route
-                    path="/profile"
-                    element={
-                        <>
-                            <ProtectRoute>
-                                <p>Profile page</p>
-                            </ProtectRoute>
-                        </>
-                    }
-                />
-                <Route
-                    path="/history"
-                    element={
-                        <>
-                            <ProtectRoute>
-                                <>History page</>
-                            </ProtectRoute>
-                        </>
-                    }
-                />
+                >
+                    <Route path="/" element={<Home />} />
+                    <Route path="/history" element={<History />} />
+                    <Route path="/my-profile" element={<Profile />} />
+                </Route>
                 <Route
                     path="auth"
                     element={

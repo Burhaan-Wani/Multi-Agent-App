@@ -59,7 +59,7 @@ export default function MetricsEditor({
     }, [metrics]);
 
     return (
-        <section className="space-y-3 py-3">
+        <section className="space-y-3">
             {errors.length > 0 && (
                 <div className="rounded-md border border-red-300 bg-red-50 p-3 space-y-1 dark:border-red-500/30 dark:bg-red-900/50">
                     {errors.map((err, i) => (

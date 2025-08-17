@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.use(isAuthenticated);
 router.post("/", submitPeerEvaluation);
-router.post("/history", getEvaluationHistory);
+router.get("/history", getEvaluationHistory);
 
 export default router;

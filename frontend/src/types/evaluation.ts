@@ -40,17 +40,19 @@ export interface EvaluateResponse {
 
 // For Evaluation History
 export interface EvaluationHistoryResponse {
-    success: boolean;
-    page: number;
-    limit: number;
-    totalCount: number;
-    totalPages: number;
-    evaluations: Array<{
-        _id: string;
-        query: string;
-        createdAt: string;
-        finalRanking: LeaderboardItem[];
-        agentResponses: AgentResponse[];
-        bestResponse?: LeaderboardItem;
-    }>;
+    status: "success" | "fail" | "error";
+    data: {
+        page: number;
+        limit: number;
+        totalCount: number;
+        totalPages: number;
+        evaluations: Array<{
+            _id: string;
+            query: string;
+            createdAt: string;
+            finalRanking: LeaderboardItem[];
+            agentResponses: AgentResponse[];
+            bestResponse?: LeaderboardItem;
+        }>;
+    };
 }
