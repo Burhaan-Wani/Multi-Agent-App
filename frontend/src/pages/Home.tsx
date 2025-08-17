@@ -104,7 +104,10 @@ export default function Home() {
                         >
                             <Textarea
                                 value={query}
-                                onChange={e => setQuery(e.target.value)}
+                                onChange={e => {
+                                    setError("");
+                                    setQuery(e.target.value);
+                                }}
                                 placeholder="Explain what is LLM?"
                                 className="min-h-[80px] text-base resize-none bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus-visible:ring-1 focus-visible:ring-blue-500"
                             />

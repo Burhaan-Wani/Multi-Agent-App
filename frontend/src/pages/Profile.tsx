@@ -292,6 +292,7 @@ export default function Profile() {
                                                     Current Password
                                                 </Label>
                                                 <Input
+                                                    placeholder="*********"
                                                     disabled={disable}
                                                     id="currentPassword"
                                                     name="currentPassword"
@@ -307,6 +308,7 @@ export default function Profile() {
                                                     New Password
                                                 </Label>
                                                 <Input
+                                                    placeholder="*********"
                                                     disabled={disable}
                                                     id="newPassword"
                                                     name="newPassword"
@@ -322,6 +324,7 @@ export default function Profile() {
                                                     Confirm New Password
                                                 </Label>
                                                 <Input
+                                                    placeholder="*********"
                                                     disabled={disable}
                                                     id="confirmPassword"
                                                     name="confirmPassword"
