@@ -43,7 +43,6 @@ export const login = asyncHandler(async (req, res, next) => {
                 return next(err);
             }
             if (!user) {
-                console.log("1");
                 return res.status(400).json({
                     status: "fail",
                     message: info?.message || "Invalide email or password",

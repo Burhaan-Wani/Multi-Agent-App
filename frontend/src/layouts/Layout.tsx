@@ -33,8 +33,11 @@ export default function Layout() {
                         <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-blue-600 text-white">
                             <Bot size={20} />
                         </div>
-                        <span className="text-xl font-bold tracking-tight">
+                        <span className="flex flex-col text-xl font-bold tracking-tight">
                             PeerEval
+                            <span className="text-xs font-medium text-muted-foreground">
+                                AI Model Evaluation Platform
+                            </span>
                         </span>
                     </div>
 
@@ -106,7 +109,7 @@ export default function Layout() {
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator className="bg-slate-200 dark:bg-slate-800" />
                                     <DropdownMenuItem
-                                        onClick={() => navigate("/profile")}
+                                        onClick={() => navigate("/my-profile")}
                                     >
                                         <User className="mr-2 h-4 w-4" />{" "}
                                         Profile
