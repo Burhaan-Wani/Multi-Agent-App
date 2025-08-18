@@ -87,7 +87,7 @@ Return ONLY JSON in this format:
 
         // Extract JSON from result
         const match = rawResult.match(/\{[\s\S]*\}/);
-        evaluations[judge.agentName] = match ? JSON.parse(match[0]) : {};
+        evaluations[judge.provider] = match ? JSON.parse(match[0]) : {};
         // evaluations[judge.provider] = match ? JSON.parse(match[0]) : {};
     }
 

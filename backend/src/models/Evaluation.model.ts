@@ -82,21 +82,20 @@ const EvaluationSchema: Schema<IEvaluation> = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     query: { type: String, required: true },
     agentResponses: { type: [AgentResponseSchema], required: true },
+
+    // --- CORRECTED SCHEMA DEFINITION ---
     agentEvaluations: {
-        type: Map,
-        of: new Schema(
-            {
-                // Each provider's evaluations of others
-                // (agentName -> AgentEvaluationResult)
-                // We'll use Mixed type for flexibility if structure varies
-                type: Map,
-                of: AgentEvaluationResultSchema,
-            },
-            { _id: false }
-        ),
+        type: Map, // Outer map: Keys are provider names (strings)
+        of: {
+            // The value of each provider is another Map
+            type: Map,
+            of: AgentEvaluationResultSchema, // The inner map's value is the result schema
+        },
         required: true,
     },
-    metrics: { type: [Schema.Types.Mixed], required: true }, // Using Mixed or import your MetricSchema
+    // ------------------------------------
+
+    metrics: { type: [Schema.Types.Mixed], required: true },
     finalRanking: { type: [FinalRankingSchema], default: [] },
     createdAt: { type: Date, default: Date.now },
 });

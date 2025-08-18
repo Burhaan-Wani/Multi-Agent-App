@@ -13,6 +13,7 @@ export async function submitPeerEvaluation(data: EvaluateRequest) {
         "/evaluations",
         data
     );
+    console.log(res.data.data);
     return res.data;
 }
 

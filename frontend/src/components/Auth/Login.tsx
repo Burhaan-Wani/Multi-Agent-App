@@ -120,7 +120,7 @@ const Login = () => {
                     {loading && (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
-                    {loading ? "Signing In..." : "Sign In"}
+                    {loading ? "Signing In..." : "Log In"}
                 </Button>
             </CardFooter>
         </Card>
