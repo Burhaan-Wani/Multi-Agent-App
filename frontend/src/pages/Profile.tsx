@@ -22,6 +22,7 @@ export default function Profile() {
         useAuthStore();
     const disable = !(user?.providerId === user?.email);
     const [loading, setLoading] = useState<boolean>(false);
+    const [detailsLoading, setDetailsLoading] = useState<boolean>(false);
     // Ref for the hidden file input
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -79,10 +80,10 @@ export default function Profile() {
 
     const handleProfileSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
+        setDetailsLoading(true);
         await updateProfile(profileData);
         toast.success("Profile updated!");
-        setLoading(false);
+        setDetailsLoading(false);
     };
 
     const handlePasswordSubmit = async (e: React.FormEvent) => {
@@ -257,7 +258,7 @@ export default function Profile() {
                                                 type="submit"
                                                 className="bg-blue-600 hover:bg-blue-700 text-white"
                                             >
-                                                {loading ? (
+                                                {detailsLoading ? (
                                                     <>
                                                         <span>
                                                             <Loader className="animate-spin" />
