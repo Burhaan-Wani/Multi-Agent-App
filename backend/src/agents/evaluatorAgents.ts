@@ -1,7 +1,7 @@
 import {
     callDeepSeek,
-    callGeminiPro,
     callGeminiFlash,
+    callQwenai,
 } from "../services/llmServices.js";
 
 export async function peerEvaluateLLMResponses(
@@ -60,8 +60,8 @@ Return ONLY JSON in this format:
         // Call the judge's own LLM API
         let rawResult = "";
         switch (judge.provider) {
-            case "gemini-pro":
-                rawResult = await callGeminiPro(
+            case "qwen":
+                rawResult = await callQwenai(
                     judge.model,
                     "You are an expert evaluator.",
                     prompt

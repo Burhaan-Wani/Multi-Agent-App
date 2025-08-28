@@ -115,7 +115,7 @@ Only output the improved response text.
     `.trim();
 
     let improvedText = await callGeminiFlash(
-        "gemini-2.5-pro",
+        "gemini-2.5-flash",
         "You are an expert assistant improving responses.",
         prompt
     );

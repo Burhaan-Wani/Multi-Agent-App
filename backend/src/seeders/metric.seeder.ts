@@ -12,9 +12,9 @@ const agentConfig = [
         personaPrompt: "You are a helpful assistant.",
     },
     {
-        name: "Gemini Pro",
-        modelProvider: modelProviderEnum.GEMINI_PRO,
-        modelName: "gemini-2.5-pro",
+        name: "Qwen",
+        modelProvider: modelProviderEnum.QWEN,
+        modelName: "openai/gpt-oss-20b:free",
         personaPrompt: "You are a helpful assistant.",
     },
     {

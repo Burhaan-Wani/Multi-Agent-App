@@ -1,7 +1,8 @@
 export const modelProviderEnum = {
     GEMINI_FLASH: "gemini-flash",
-    GEMINI_PRO: "gemini-pro",
+    // OPEN_AI: "openai",
     DEEPSEEK: "deepseek",
+    QWEN: "qwen",
 };
 
 export type modelProviderEnumType =

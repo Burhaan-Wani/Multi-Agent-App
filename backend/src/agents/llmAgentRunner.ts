@@ -1,6 +1,6 @@
 import AgentConfig, { IAgentConfig } from "../models/AgentConfig.model.js";
 import {
-    callGeminiPro,
+    callQwenai,
     callGeminiFlash,
     callDeepSeek,
 } from "../services/llmServices.js";
@@ -18,8 +18,8 @@ export const runAllLLMAgents = async (userQuery: string) => {
                         userQuery
                     );
                     break;
-                case "gemini-pro":
-                    responseText = await callGeminiPro(
+                case "qwen":
+                    responseText = await callQwenai(
                         agent.modelName,
                         agent.personaPrompt,
                         userQuery
